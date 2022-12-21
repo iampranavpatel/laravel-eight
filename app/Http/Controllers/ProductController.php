@@ -18,14 +18,14 @@ class ProductController extends Controller
     }
 
     /*
-    * Addition page blade
+    * Add products blade
     */
     public function add(){
         return view('product.add');
     }
 
     /*
-    * Addition page data handle
+    * Add product data handle
     */
     public function store(Request $request){
         $validator = $request->validate([
@@ -93,7 +93,7 @@ class ProductController extends Controller
     }
 
     /*
-    * Filter
+    * Search product
     */
     public function search(Request $request){
         $searchTerm = $request->search;
@@ -110,7 +110,7 @@ class ProductController extends Controller
         
         if($validator){
 
-            $products = Product::where('name',$searchTerm)
+            $products = Product::where('name','like','%'.$searchTerm.'%')
             ->paginate(3);
             
             return view('product.index', compact('products'))
